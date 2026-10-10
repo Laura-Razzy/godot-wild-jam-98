@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://b0g25evgqgi7l"]
+
+[ext_resource type="Script" uid="uid://c8yglqgxdbkij" path="res://Assets/Scripts/player_movement.gd" id="1_taume"]
+[ext_resource type="Script" uid="uid://btyt420w8qvq4" path="res://Assets/Scripts/player_interactions.gd" id="2_4k3iq"]
+[ext_resource type="Material" uid="uid://ce3nbyl32vr8i" path="res://Assets/Materials/Green.tres" id="3_xa6fy"]
+[ext_resource type="Material" uid="uid://bnptgq8umphm5" path="res://Assets/Materials/Light Blue.tres" id="4_rg3wk"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7yu3s"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_h2me6"]
+material = ExtResource("3_xa6fy")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7yu3s"]
+size = Vector3(10, 0.1, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_h2me6"]
+material = ExtResource("4_rg3wk")
+size = Vector3(10, 0.1, 10)
+
+[node name="Node3D" type="Node3D" unique_id=775771334]
+
+[node name="Player" type="CharacterBody3D" parent="." unique_id=221411991]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0027622, 0)
+script = ExtResource("1_taume")
+
+[node name="Player Interactions" type="Node" parent="Player" unique_id=619553591 node_paths=PackedStringArray("interaction_label")]
+script = ExtResource("2_4k3iq")
+interaction_label = NodePath("../../CanvasLayer/Label")
+
+[node name="Camera3D" type="Camera3D" parent="Player" unique_id=2114884489]
+
+[node name="InteractionRay" type="RayCast3D" parent="Player/Camera3D" unique_id=1424378645]
+target_position = Vector3(0, 0, -10)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=31416059]
+shape = SubResource("CapsuleShape3D_7yu3s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player" unique_id=893945762]
+mesh = SubResource("CapsuleMesh_h2me6")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1941415]
+
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=1211984461]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=346926852]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=162722006]
+shape = SubResource("BoxShape3D_7yu3s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" unique_id=194483002]
+mesh = SubResource("BoxMesh_h2me6")
