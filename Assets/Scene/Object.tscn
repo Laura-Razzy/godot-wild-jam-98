@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://c4txhfoa2aiey"]
+
+[ext_resource type="Material" uid="uid://dbko7l4nrqsjm" path="res://Assets/Materials/Brown.tres" id="1_6jwtv"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_h2me6"]
+material = ExtResource("1_6jwtv")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7yu3s"]
+
+[node name="Object" type="RigidBody3D" unique_id=379867481]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=90203192]
+mesh = SubResource("SphereMesh_h2me6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1561591290]
+shape = SubResource("SphereShape3D_7yu3s")

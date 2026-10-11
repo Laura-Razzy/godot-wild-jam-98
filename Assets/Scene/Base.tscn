@@ -4,6 +4,12 @@
 [ext_resource type="Script" uid="uid://btyt420w8qvq4" path="res://Assets/Scripts/player_interactions.gd" id="2_4k3iq"]
 [ext_resource type="Material" uid="uid://ce3nbyl32vr8i" path="res://Assets/Materials/Green.tres" id="3_xa6fy"]
 [ext_resource type="Material" uid="uid://bnptgq8umphm5" path="res://Assets/Materials/Light Blue.tres" id="4_rg3wk"]
+[ext_resource type="PackedScene" uid="uid://c4txhfoa2aiey" path="res://Assets/Scene/Object.tscn" id="5_4k3iq"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_7yu3s"]
+material = ExtResource("3_xa6fy")
+radius = 0.1
+height = 0.5
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7yu3s"]
 
@@ -11,11 +17,11 @@
 material = ExtResource("3_xa6fy")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7yu3s"]
-size = Vector3(10, 0.1, 10)
+size = Vector3(40, 0.1, 40)
 
 [sub_resource type="BoxMesh" id="BoxMesh_h2me6"]
 material = ExtResource("4_rg3wk")
-size = Vector3(10, 0.1, 10)
+size = Vector3(40, 0.1, 40)
 
 [node name="Node3D" type="Node3D" unique_id=775771334]
 
@@ -28,9 +34,17 @@ script = ExtResource("2_4k3iq")
 interaction_label = NodePath("../../CanvasLayer/Label")
 
 [node name="Camera3D" type="Camera3D" parent="Player" unique_id=2114884489]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.52552104, 0)
 
 [node name="InteractionRay" type="RayCast3D" parent="Player/Camera3D" unique_id=1424378645]
 target_position = Vector3(0, 0, -10)
+
+[node name="HoldPoint" type="Marker3D" parent="Player/Camera3D" unique_id=1376225465]
+transform = Transform3D(0.15986347, 0.28643668, 0.944668, 0.8343031, -0.55070233, 0.025793962, 0.5276191, 0.78401595, -0.32701224, 0.6224922, -0.309556, -0.3263331)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player/Camera3D/HoldPoint" unique_id=2052693258]
+transform = Transform3D(1.0000002, -2.9802322e-08, 0, 8.940697e-08, 1, 0, -2.9802322e-08, -5.9604645e-08, 1, -0.056420326, 0.0030377507, -0.0715456)
+mesh = SubResource("CapsuleMesh_7yu3s")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=31416059]
 shape = SubResource("CapsuleShape3D_7yu3s")
@@ -41,8 +55,11 @@ mesh = SubResource("CapsuleMesh_h2me6")
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1941415]
 
 [node name="Label" type="Label" parent="CanvasLayer" unique_id=1211984461]
-offset_right = 40.0
-offset_bottom = 23.0
+anchors_preset = -1
+anchor_right = 0.001
+anchor_bottom = 0.001
+offset_right = 38.848
+offset_bottom = 22.352
 
 [node name="Ground" type="StaticBody3D" parent="." unique_id=346926852]
 
@@ -51,3 +68,6 @@ shape = SubResource("BoxShape3D_7yu3s")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" unique_id=194483002]
 mesh = SubResource("BoxMesh_h2me6")
+
+[node name="Object" parent="." unique_id=168970017 instance=ExtResource("5_4k3iq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -5)
