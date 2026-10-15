@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://btyt420w8qvq4" path="res://Assets/Scripts/player_interactions.gd" id="2_4k3iq"]
 [ext_resource type="Material" uid="uid://ce3nbyl32vr8i" path="res://Assets/Materials/Green.tres" id="3_xa6fy"]
 [ext_resource type="Material" uid="uid://bnptgq8umphm5" path="res://Assets/Materials/Light Blue.tres" id="4_rg3wk"]
+[ext_resource type="Script" uid="uid://1aebmrb2pojm" path="res://Assets/Scripts/player_ui.gd" id="4_xa6fy"]
 [ext_resource type="PackedScene" uid="uid://c4txhfoa2aiey" path="res://Assets/Scene/Object.tscn" id="5_4k3iq"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_7yu3s"]
@@ -29,9 +30,9 @@ size = Vector3(40, 0.1, 40)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0027622, 0)
 script = ExtResource("1_taume")
 
-[node name="Player Interactions" type="Node" parent="Player" unique_id=619553591 node_paths=PackedStringArray("interaction_label")]
+[node name="PlayerInteractions" type="Node" parent="Player" unique_id=619553591 node_paths=PackedStringArray("player_ui")]
 script = ExtResource("2_4k3iq")
-interaction_label = NodePath("../../CanvasLayer/Label")
+player_ui = NodePath("../../CanvasLayer")
 
 [node name="Camera3D" type="Camera3D" parent="Player" unique_id=2114884489]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.52552104, 0)
@@ -52,14 +53,39 @@ shape = SubResource("CapsuleShape3D_7yu3s")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Player" unique_id=893945762]
 mesh = SubResource("CapsuleMesh_h2me6")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1941415]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1941415 node_paths=PackedStringArray("interaction_text", "dialogue_text")]
+follow_viewport_enabled = true
+script = ExtResource("4_xa6fy")
+interaction_text = NodePath("InteractionText")
+dialogue_text = NodePath("DialogueText")
 
-[node name="Label" type="Label" parent="CanvasLayer" unique_id=1211984461]
-anchors_preset = -1
-anchor_right = 0.001
-anchor_bottom = 0.001
-offset_right = 38.848
-offset_bottom = 22.352
+[node name="InteractionText" type="Label" parent="CanvasLayer" unique_id=1211984461]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = 76.0
+offset_right = 40.0
+offset_bottom = 99.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="DialogueText" type="Label" parent="CanvasLayer" unique_id=262200301]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+horizontal_alignment = 1
+vertical_alignment = 2
 
 [node name="Ground" type="StaticBody3D" parent="." unique_id=346926852]
 

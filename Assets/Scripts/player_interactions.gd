@@ -1,9 +1,9 @@
 extends Node
 # Comments are for myself because I'm still learning GDScript! I know it's too much, please don't judge! :3
 @export var interaction_distance: float = 10.0
-@export var interaction_label: Label
 @export var original_collision_layer: int = 1
 @export var held_object: RigidBody3D = null
+@export var player_ui: PlayerUI
 @export_flags_3d_physics var detection_mask: int = 1
 @onready var camera: Camera3D = $"../Camera3D"
 @onready var interaction_ray: RayCast3D = $"../Camera3D/InteractionRay" # InteractionRay is just a RayCast
@@ -12,17 +12,23 @@ extends Node
 func _ready() -> void:
 	interaction_ray.target_position = Vector3(0.0, 0.0, -interaction_distance) # Z is backwards on godot...
 	interaction_ray.collision_mask = detection_mask
-	interaction_label.text = ""
 
 func _process(_delta: float) -> void: #If it's holding something, it says put down, if it's not and you point towards it, it says pick up.
 	if held_object != null:
-		interaction_label.text = "[F] Put Down"
+		player_ui.show_interaction_text("[F] Put Down")
+		return
 	interaction_ray.force_raycast_update()
 	if interaction_ray.is_colliding():
 		var target = interaction_ray.get_collider()
-		if target is RigidBody3D and target.is_in_group("pickupable"):
-			interaction_label.text = target.name + "\n[F] Pick Up"
-		else:interaction_label.text = ""
+		if target is RigidBody3D:
+			if target.is_in_group("pickupable"):
+				player_ui.show_interaction_text(target.name + "\n[F] Pick Up")
+			if target.is_in_group("interactable"):
+				player_ui.show_interaction_text(target.name + "\n[F] Interact")
+		else:
+			player_ui.show_interaction_text("")
+	else:
+		player_ui.show_interaction_text("")
 
 func _unhandled_input(event: InputEvent) -> void: #If you ask to interact, it tries to interact!
 	if event.is_action_pressed("interact"):
