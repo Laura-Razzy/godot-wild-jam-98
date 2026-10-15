@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Godot Wild Jam 98"
 run/main_scene="uid://b0g25evgqgi7l"
-config/features=PackedStringArray("4.7", "C#", "Forward Plus")
+config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
 [display]
